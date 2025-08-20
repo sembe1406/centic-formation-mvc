@@ -1,0 +1,14 @@
+{
+    "name": "centic/formation-mvc",
+    "description": "Application de gestion des formations",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "require": {
+        "php": ">=7.4"
+    }
+}
