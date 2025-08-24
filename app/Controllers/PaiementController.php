@@ -1,32 +1,20 @@
 <?php
-require_once 'models/Paiement.php';
+include 'db.php';
 
-class PaiementController {
-    private $paiement;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $participant_id = $_POST['participant_id'];
+    $type = $_POST['type'];
+    $montant = $_POST['montant'];
+    $date = $_POST['date'];
 
-    public function __construct($db) {
-        $this->paiement = new Paiement($db);
+    if ($montant <= 0) {
+        die("Le montant doit être supérieur à zéro.");
     }
 
-    public function afficherFormulaire() {
-        include 'views/paiement_form.php';
-    }
+    $stmt = $pdo->prepare("INSERT INTO paiements (participant_id, type, montant, date, created_at) VALUES (?, ?, ?, ?, NOW())");
+    $stmt->execute([$participant_id, $type, $montant, $date]);
 
-    public function enregistrerPaiement() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id_inscription = $_POST['id_inscription'];
-            $montant = $_POST['montant'];
-            $mode = $_POST['mode'];
-            $type_paiement = $_POST['type_paiement'];
-            $date_paiement = $_POST['date_paiement'];
-
-            $this->paiement->ajouterPaiement($id_inscription, $montant, $mode, $type_paiement, $date_paiement);
-            header('Location: index.php?action=listerPaiements');
-        }
-    }
-
-    public function listerPaiements() {
-        $paiements = $this->paiement->getAllPaiements();
-        include 'views/paiement_list.php';
-    }
+    echo "✅ Paiement enregistré avec succès.<br>";
+    echo "<a href='liste_paiements.php'>Voir la liste des paiements</a>";
 }
+?>
