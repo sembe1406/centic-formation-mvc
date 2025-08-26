@@ -1,0 +1,41 @@
+<?php
+require 'paiement.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ajouterPaiement($_POST['participant'], $_POST['type'], $_POST['montant'], $_POST['date']);
+}
+
+$participants = getParticipants();
+$paiements = getPaiements();
+?>
+
+<form method="POST">
+  <label>Participant :</label>
+  <select name="participant" required>
+    <?php foreach ($participants as $p): ?>
+      <option value="<?= $p['id'] ?>"><?= htmlspecialchars($p['nom']) ?></option>
+    <?php endforeach; ?>
+  </select>
+
+  <label>Type :</label>
+  <select name="type" required>
+    <option value="inscription">Inscription</option>
+    <option value="tranche">Tranche</option>
+  </select>
+
+  <label>Montant :</label>
+  <input type="number" name="montant" required>
+
+  <label>Date :</label>
+  <input type="date" name="date" required>
+
+  <button type="submit">Ajouter Paiement</button>
+</form>
+
+<h2>Liste des paiements</h2>
+<ul>
+  <?php foreach ($paiements as $p): ?>
+    <li><?= htmlspecialchars($p['nom']) ?> – <?= $p['type'] ?> – <?= $p['montant'] ?> FCFA – <?= $p['date'] ?></li>
+  <?php endforeach; ?>
+</ul>
+
