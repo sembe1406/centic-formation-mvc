@@ -1,7 +1,7 @@
 <?php $title = 'Accueil'; ?>
 
 <div class="jumbotron">
-    <h1 class="display-4">Bienvenue sur Centic Formation Management Platform</h1>
+    <h1 class="display-4">Centic Formation Management Platform</h1>
     <p class="lead">Votre plateforme de gestion des formations professionnelles.</p>
     <hr class="my-4">
     <p>Découvrez nos formations, inscrivez-vous et suivez votre progression en temps réel.</p>
