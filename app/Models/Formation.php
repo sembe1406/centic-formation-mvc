@@ -12,7 +12,7 @@ class Formation extends Model
     ];
     
     /**
-     * Récupérer les dernières formations
+     * Récupérer les dernières formationss
      * 
      * @param int $limit Nombre de formations à récupérer
      * @return array Liste des formations
@@ -85,4 +85,38 @@ class Formation extends Model
             [$id]
         )->find()['count'];
     }
+        /**
+     * Ajouter une nouvelle formation
+     *
+     * @param array $data Données de la formation
+     * @return bool True si succès, false sinon
+     */
+    public function addFormation(array $data) 
+    {
+        return $this->db->insert($this->table, $data);
+    }
+
+    /**
+     * Mettre à jour une formation existante
+     *
+     * @param int $id ID de la formation
+     * @param array $data Données à mettre à jour
+     * @return bool True si succès, false sinon
+     */
+    public function updateFormation(int $id, array $data)
+    {
+        return $this->db->update($this->table, $data, [$this->primaryKey => $id]);
+    }
+
+    /**
+     * Supprimer une formation
+     *
+     * @param int $id ID de la formation
+     * @return bool True si succès, false sinon
+     */
+    public function deleteFormation(int $id)
+    {
+        return $this->db->delete($this->table, [$this->primaryKey => $id]);
+    }
+  
 }
