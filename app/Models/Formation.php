@@ -93,11 +93,11 @@ class Formation extends Model
      */
     public function addFormation(array $data) 
     {
-        return $this->db->insert($this->table, $data);
+        return $this->create($data); 
     }
 
     /**
-     * Mettre à jour une formation existante
+     * Mettre à jour une formation existant
      *
      * @param int $id ID de la formation
      * @param array $data Données à mettre à jour
@@ -105,7 +105,7 @@ class Formation extends Model
      */
     public function updateFormation(int $id, array $data)
     {
-        return $this->db->update($this->table, $data, [$this->primaryKey => $id]);
+        return $this->update($id, $data); 
     }
 
     /**
@@ -116,7 +116,7 @@ class Formation extends Model
      */
     public function deleteFormation(int $id)
     {
-        return $this->db->delete($this->table, [$this->primaryKey => $id]);
+        return $this->delete($id);
     }
   
 }

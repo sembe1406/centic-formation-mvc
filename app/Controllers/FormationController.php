@@ -25,9 +25,15 @@ class FormationController
     // Afficher les détails d’une formation
     public function show($id)
     {
+        $formation = $this->formationModel->findById($id);
+
+        if (!$formation) {
+            die("❌ Formation introuvable !");
+        }
+
         $formateurs = $this->formationModel->getFormateurs($id);
-        $seances = $this->formationModel->getSeances($id);
-        $count = $this->formationModel->countParticipants($id);
+        $seances    = $this->formationModel->getSeances($id);
+        $count      = $this->formationModel->countParticipants($id);
 
         require __DIR__ . "/../Views/formation/show.php";
     }
