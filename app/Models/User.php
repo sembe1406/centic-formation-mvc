@@ -1,9 +1,10 @@
 <?php
 namespace App\Models;
 
-use Core\Model;
+// Utiliser le namespace complet pour éviter les conflits
+use Core\Model as BaseModel;
 
-class User extends Model
+class User extends BaseModel
 {
     protected $table = 'Utilisateur';
     protected $primaryKey = 'id_utilisateur';

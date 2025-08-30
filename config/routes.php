@@ -1,6 +1,8 @@
 <?php
 // Définition des routes de l'application
-$router = new \App\Core\Router();
+// Utilisation de l'instance $router créée dans index.php
+
+echo "<!-- Chargement des routes -->\n";
 
 // Routes pour l'authentification
 $router->get('/login', 'AuthController@loginView');
@@ -80,8 +82,8 @@ $router->get('/rapports/presences', 'RapportController@presences');
 $router->get('/rapports/paiements', 'RapportController@paiements');
 $router->get('/rapports/generer', 'RapportController@generer');
 
-// Route par défaut pour les pages non trouvées
-$router->notFound(function() {
-    http_response_code(404);
-    echo "404 - Page non trouvée";
-});
+
+// $router->notFound(function() {
+//     http_response_code(404);
+//     echo "404 - Page non trouvée";
+// });

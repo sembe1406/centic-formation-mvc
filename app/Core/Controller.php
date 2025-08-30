@@ -7,8 +7,25 @@ class Controller
     {
         extract($data);
         
-        // Vérifier si le fichier de vue existe
+        // Vérifier si le fichier de vue existe directement
         $viewPath = __DIR__ . "/../views/{$name}.php";
+        
+        // Essayons aussi le chemin avec les sous-dossiers (si nécessaire)
+        if (!file_exists($viewPath) && strpos($name, '/') === false) {
+            $folders = ['auth', 'admin', 'user']; // Dossiers potentiels à vérifier
+            
+            foreach ($folders as $folder) {
+                $altPath = __DIR__ . "/../views/{$folder}/{$name}.php";
+                if (file_exists($altPath)) {
+                    $viewPath = $altPath;
+                    break;
+                }
+            }
+        }
+        
+        echo "<!-- Looking for view at: {$viewPath} -->\n";
+        error_log("Looking for view at: {$viewPath}");
+        
         if (file_exists($viewPath)) {
             ob_start();
             require $viewPath;
@@ -22,7 +39,19 @@ class Controller
                 echo $content;
             }
         } else {
-            echo "Vue {$name} non trouvée";
+            echo "Vue {$name} non trouvée au chemin {$viewPath}";
+            error_log("View not found: {$viewPath}");
+            
+            // Lister toutes les vues disponibles
+            $views = glob(__DIR__ . "/../views/*.php");
+            $viewsInFolders = glob(__DIR__ . "/../views/*/*.php");
+            $allViews = array_merge($views, $viewsInFolders);
+            
+            echo "<p>Vues disponibles:</p><ul>";
+            foreach ($allViews as $view) {
+                echo "<li>" . basename(dirname($view)) . "/" . basename($view) . "</li>";
+            }
+            echo "</ul>";
         }
     }
 
@@ -58,8 +87,17 @@ class Controller
 
     protected function validateCSRF()
     {
-        if (!isset($_POST['_csrf']) || !isset($_SESSION['_csrf']) || $_POST['_csrf'] !== $_SESSION['_csrf']) {
-            $this->json(['error' => 'CSRF token mismatch'], 403);
+        if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            $_SESSION['error'] = 'Erreur de sécurité : CSRF token invalide. Veuillez réessayer.';
+            $this->redirect($_SERVER['HTTP_REFERER'] ?? '/');
         }
+    }
+    
+    protected function generateCSRFToken()
+    {
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
     }
 }
