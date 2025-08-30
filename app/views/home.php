@@ -5,16 +5,10 @@
     <p class="lead">Votre plateforme de gestion des formations professionnelles.</p>
     <hr class="my-4">
     <p>Découvrez nos formations, inscrivez-vous et suivez votre progression en temps réel.</p>
-    <!-- <a class="btn btn-primary btn-lg" href="/formations" role="button">Voir les formations</a> -->
-<div class="row">
-</div>
+    
 </div>
 
-<div class="row">
-</div>
-<div class="row">
-</div>
-<div class="row">
+
 </div>
 
 

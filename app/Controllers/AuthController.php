@@ -23,7 +23,14 @@ class AuthController extends Controller
             $this->redirect('/dashboard');
         }
         
-        return $this->view('auth/login');
+        // Générer un token CSRF
+        $this->generateCSRFToken();
+        
+        $user = []; // Temporairement vide, à remplacer par $this->formationModel->getLatest(3);
+        
+        return $this->view('login', [
+            'user' => $user
+        ]);
     }
     
     /**
@@ -102,7 +109,12 @@ class AuthController extends Controller
             $this->redirect('/dashboard');
         }
         
-        return $this->view('auth/register');
+        // Générer un token CSRF
+        $this->generateCSRFToken();
+        
+        return $this->view('register');
+
+        
     }
     
     /**

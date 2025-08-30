@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si ton projet est dans htdocs à la racine (ex: http://localhost/monprojet/public)
+    RewriteBase /monprojet/public/
+
+    # Ne pas réécrire pour les fichiers ou dossiers existants
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rediriger toutes les requêtes vers index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+
+# Bloquer l'accès aux fichiers sensibles
+<FilesMatch "\.(env|htaccess|ini|log|json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

@@ -31,15 +31,25 @@ class HomeController extends Controller
             $this->redirect('/login');
         }
         
+        // Données communes pour tous les rôles
+        $data = [];
+        
         // Logique du tableau de bord selon le rôle de l'utilisateur
         $role = $_SESSION['user']['role'];
         
         if ($role === 'admin') {
-            return $this->view('dashboard/admin');
+            // Récupérer les données pour l'administrateur
+            // Dans une version réelle, ces données viendraient de la base de données
+            $data['recentInscriptions'] = []; // À remplacer par des données réelles
+            $data['upcomingFormations'] = []; // À remplacer par des données réelles
         } elseif ($role === 'formateur') {
-            return $this->view('dashboard/formateur');
+            // Récupérer les données pour le formateur
+            $data['upcomingSeances'] = []; // À remplacer par des données réelles
         } else {
-            return $this->view('dashboard/participant');
+            // Récupérer les données pour le participant
+            $data['participantSeances'] = []; // À remplacer par des données réelles
         }
+        
+        return $this->view('dashboard', $data);
     }
 }

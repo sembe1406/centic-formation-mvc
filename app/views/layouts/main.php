@@ -82,10 +82,10 @@
                             </li>
                         <?php else: ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt me-1"></i> Connexion</a>
+                                <a class="nav-link" href='/login'><i class="fas fa-sign-in-alt me-1"></i> Connexion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/register"><i class="fas fa-user-plus me-1"></i> Inscription</a>
+                                <a class="nav-link" href='/register'><i class="fas fa-user-plus me-1"></i> Inscription</a>
                             </li>
                         <?php endif; ?>
                     </ul>

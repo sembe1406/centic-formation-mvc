@@ -11,9 +11,8 @@ class Router
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method' => $method,
+            'method' => strtoupper($method),
         ];
-
         return $this;
     }
 
@@ -37,31 +36,41 @@ class Router
         return $this->add('DELETE', $uri, $controller);
     }
 
-    public function notFound($controller)
+    public function notFound($callback)
     {
-        $this->notFoundCallback = $controller;
+        $this->notFoundCallback = $callback;
     }
 
     public function route($uri, $method)
     {
+        $method = strtoupper($method);
+
         foreach ($this->routes as $route) {
-            // Conversion de l'URI en expression régulière
             $pattern = $this->convertUriToRegex($route['uri']);
-            
-            if (preg_match($pattern, $uri, $matches) && $route['method'] === strtoupper($method)) {
-                // Extraire les paramètres de l'URI
-                array_shift($matches); // Supprimer la correspondance complète
-                
-                // Séparer le contrôleur et la méthode
-                [$controllerName, $method] = explode('@', $route['controller']);
-                $controllerName = "App\\Controllers\\{$controllerName}";
-                
-                // Instancier le contrôleur et appeler la méthode
-                $controller = new $controllerName();
-                return call_user_func_array([$controller, $method], $matches);
+
+            if (preg_match($pattern, $uri, $matches)) {
+                if ($route['method'] === $method) {
+                    array_shift($matches); // Supprimer la correspondance complète
+
+                    [$controllerName, $action] = explode('@', $route['controller']);
+                    $controllerName = "App\\Controllers\\{$controllerName}";
+
+                    if (!class_exists($controllerName)) {
+                        return $this->defaultNotFound();
+                    }
+
+                    $controller = new $controllerName();
+
+                    if (!method_exists($controller, $action)) {
+                        return $this->defaultNotFound();
+                    }
+
+                    return call_user_func_array([$controller, $action], $matches);
+                }
             }
         }
 
+        // Si aucune route ne correspond
         if ($this->notFoundCallback) {
             return call_user_func($this->notFoundCallback);
         }
@@ -71,7 +80,7 @@ class Router
 
     private function convertUriToRegex($uri)
     {
-        // Remplacer {param} par (\w+)
+        // Convertir {param} en ([^/]+)
         $regex = preg_replace('/\{(\w+)\}/', '([^/]+)', $uri);
         return "@^$regex$@";
     }
@@ -79,6 +88,6 @@ class Router
     private function defaultNotFound()
     {
         http_response_code(404);
-        return "404 Page Not Found";
+        return "404 - Page non trouvée";
     }
 }
