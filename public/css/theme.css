@@ -1,0 +1,200 @@
+/* 
+   Centic Formation MVC - Thème personnalisé
+   Couleurs principales: Bleu nuit, noir clair, blanc
+*/
+
+:root {
+    --primary: #050568;  
+    --secondary: #1353d3;     /* Bleu nuit */    /* Variation plus claire du bleu nuit */
+    --dark: #2c3034;          /* Noir clair */
+    --light: #f8f9fa;         /* Blanc cassé */
+    --white: #ffffff;         /* Blanc pur */
+    --accent: #145DA0;        /* Bleu accent pour les boutons et éléments interactifs */
+    --success: #0B6E4F;       /* Vert succès */
+    --info: #2E8BC0;          /* Bleu info */
+    --warning: #FFC857;       /* Jaune avertissement */
+    --danger: #E63946;        /* Rouge danger */
+}
+
+/* Surcharge des classes Bootstrap */
+
+/* Couleur de fond primaire */
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+/* Couleur de texte primaire */
+.text-primary {
+    color: var(--primary) !important;
+}
+
+/* Bouton primaire */
+.btn-primary {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+/* Bouton outline primaire */
+.btn-outline-primary {
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    background-color: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: var(--white) !important;
+}
+
+/* Navbar personnalisée */
+.navbar-dark {
+    background-color: var(--primary) !important;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--white);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .active > .nav-link,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: var(--white);
+    font-weight: bold;
+}
+
+/* Cards personnalisés */
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--primary);
+    color: var(--white);
+    border-top-left-radius: 0.5rem !important;
+    border-top-right-radius: 0.5rem !important;
+}
+
+/* Tables personnalisées */
+.table-hover tbody tr:hover {
+    background-color: rgba(12, 45, 72, 0.05);
+}
+
+.table thead th {
+    background-color: var(--primary);
+    color: var(--white);
+    border-bottom: none;
+}
+
+/* Pagination personnalisée */
+.page-item.active .page-link {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+.page-link {
+    color: var(--accent);
+}
+
+.page-link:hover {
+    color: var(--primary);
+}
+
+/* Formulaires */
+.form-control:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.25rem rgba(20, 93, 160, 0.25);
+}
+
+/* Badge personnalisé */
+.badge-primary {
+    background-color: var(--accent);
+}
+
+/* Alertes personnalisées */
+.alert-primary {
+    background-color: rgba(20, 93, 160, 0.2);
+    border-color: rgba(20, 93, 160, 0.3);
+    color: var(--primary);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 2rem 0;
+}
+
+/* Styles spécifiques à l'application */
+.formation-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formation-card .card-body {
+    flex: 1;
+}
+
+.jumbotron {
+    background-color: rgba(12, 45, 72, 0.1);
+    border-radius: 0.5rem;
+}
+
+/* Styles pour les tableaux de bord */
+.dashboard-stat {
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.dashboard-stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.dashboard-stat-label {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.dashboard-stat-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+}
+
+.bg-formations {
+    background-color: var(--accent);
+}
+
+.bg-participants {
+    background-color: var(--info);
+}
+
+.bg-formateurs {
+    background-color: var(--secondary);
+}
+
+.bg-paiements {
+    background-color: var(--success);
+}

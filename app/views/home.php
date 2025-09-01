@@ -1,12 +1,22 @@
 <?php $title = 'Accueil'; ?>
 
 <div class="jumbotron">
-    <h1 class="display-4">Bienvenue sur Centic Formation</h1>
+    <h1 class="display-4">Bienvenue sur Centic Formation Management Platform</h1>
     <p class="lead">Votre plateforme de gestion des formations professionnelles.</p>
     <hr class="my-4">
     <p>Découvrez nos formations, inscrivez-vous et suivez votre progression en temps réel.</p>
-    <a class="btn btn-primary btn-lg" href="/formations" role="button">Voir les formations</a>
+    <!-- <a class="btn btn-primary btn-lg" href="/formations" role="button">Voir les formations</a> -->
+<div class="row">
 </div>
+</div>
+
+<div class="row">
+</div>
+<div class="row">
+</div>
+<div class="row">
+</div>
+
 
 <div class="row">
     <div class="col-md-4 mb-4">
