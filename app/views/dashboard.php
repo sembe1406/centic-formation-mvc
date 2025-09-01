@@ -241,7 +241,7 @@
                         </div>
                         <h5 class="card-title">Mes formations</h5>
                         <p class="card-text">Formations auxquelles vous êtes inscrit</p>
-                        <a href="/mes-formations" class="btn btn-primary">Voir mes formations</a>
+                        <a href="/formations" class="btn btn-primary">Voir mes formations</a>
                     </div>
                 </div>
             </div>

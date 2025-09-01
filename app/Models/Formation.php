@@ -85,4 +85,60 @@ class Formation extends Model
             [$id]
         )->find()['count'];
     }
+
+    /**
+     * Récupérer toutes les formations
+     */
+    public function getAll()
+    {
+        return $this->db->query("SELECT * FROM {$this->table} ORDER BY date_debut DESC")->findAll();
+    }
+
+    /**
+     * Récupérer une formation par son ID
+     */
+    public function getById($id)
+    {
+        return $this->db->query("SELECT * FROM {$this->table} WHERE {$this->primaryKey} = ?", [$id])->find();
+    }
+
+    /**
+     * Créer une nouvelle formation
+     */
+    public function create($data)
+    {
+        $fields = implode(', ', array_keys($data));
+        $values = implode(', ', array_fill(0, count($data), '?'));
+        
+        return $this->db->query(
+            "INSERT INTO {$this->table} ($fields) VALUES ($values)",
+            array_values($data)
+        )->lastInsertId();
+    }
+
+    /**
+     * Mettre à jour une formation
+     */
+    public function update($id, $data)
+    {
+        $fields = implode(' = ?, ', array_keys($data)) . ' = ?';
+        $values = array_values($data);
+        $values[] = $id;
+
+        return $this->db->query(
+            "UPDATE {$this->table} SET $fields WHERE {$this->primaryKey} = ?",
+            $values
+        )->rowCount();
+    }
+
+    /**
+     * Supprimer une formation
+     */
+    public function delete($id)
+    {
+        return $this->db->query(
+            "DELETE FROM {$this->table} WHERE {$this->primaryKey} = ?",
+            [$id]
+        )->rowCount();
+    }
 }
