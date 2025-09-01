@@ -1,20 +1,39 @@
 <?php
-include 'db.php';
+namespace App\Controllers;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $participant_id = $_POST['participant_id'];
-    $type = $_POST['type'];
-    $montant = $_POST['montant'];
-    $date = $_POST['date'];
+use App\Core\Controller;
+use App\Models\Paiement;
 
-    if ($montant <= 0) {
-        die("Le montant doit être supérieur à zéro.");
+class PaiementController extends Controller
+{
+    private $paiementModel;
+
+    public function __construct()
+    {
+        $this->paiementModel = new Paiement();
     }
 
-    $stmt = $pdo->prepare("INSERT INTO paiements (participant_id, type, montant, date, created_at) VALUES (?, ?, ?, ?, NOW())");
-    $stmt->execute([$participant_id, $type, $montant, $date]);
+    public function index()
+    {
+        $paiements = $this->paiementModel->getAll();
+        return $this->view('paiements/list', ['paiements' => $paiements]);
+    }
 
-    echo "✅ Paiement enregistré avec succès.<br>";
-    echo "<a href='liste_paiements.php'>Voir la liste des paiements</a>";
+    public function store()
+    {
+        if (!$this->isMethod('POST')) {
+            return $this->view('paiements/form');
+        }
+
+        $data = [
+            'participant_id' => $this->input('participant_id'),
+            'formation_id' => $this->input('formation_id'),
+            'montant' => $this->input('montant'),
+            'tranche' => $this->input('tranche'),
+            'mode_paiement' => $this->input('mode_paiement')
+        ];
+
+        $this->paiementModel->create($data);
+        return $this->redirect('/paiements');
+    }
 }
-?>

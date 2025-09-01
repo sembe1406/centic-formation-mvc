@@ -1,0 +1,28 @@
+<form method="POST" action="/paiements/store">
+    <label>ID Participant</label>
+    <input type="text" name="participant_id" required>
+
+    <label>Formation</label>
+    <select name="formation_id">
+        <!-- À remplir dynamiquement avec les formations -->
+        <option value="1">Web Dev</option>
+        <option value="2">Design Graphique</option>
+    </select>
+
+    <label>Montant</label>
+    <input type="number" name="montant" required>
+
+    <label>Tranche</label>
+    <select name="tranche">
+        <option value="1ère">1ère tranche</option>
+        <option value="2ème">2ème tranche</option>
+    </select>
+
+    <label>Mode de paiement</label>
+    <select name="mode_paiement">
+        <option value="Mobile Money">Mobile Money</option>
+        <option value="Espèces">Espèces</option>
+    </select>
+
+    <button type="submit">Enregistrer</button>
+</form>
